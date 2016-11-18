@@ -1,5 +1,11 @@
 {
-    "type": "template",
-    "template": "text",
-    "text": "Hello World!"
+    "type": "adapter",
+    "children": [
+        {
+            "type": "input",
+            "inputType": "text",
+            "id": "name",
+            "label": "What is your Name?"
+        }
+    ]
 }
