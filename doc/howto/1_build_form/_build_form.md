@@ -95,7 +95,7 @@ Add the following input JSON as a child of the adapter
 
 Refresh your application to see the new input.
 
-![One input down](./1_add_input.JPG)
+![One input down](./1_add_input.jpg)
 
 ## 4. Add another Input
 
