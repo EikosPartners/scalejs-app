@@ -495,6 +495,9 @@ and a `list` component. Within the List's `items` array, we will specify an `inp
 }
 ```
 
+![Add items to a list](./7_add_list.jpg)
+
+
 <!--```JSON
 
 ```-->
