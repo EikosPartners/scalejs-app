@@ -2,10 +2,53 @@
     "type": "adapter",
     "children": [
         {
+            "type": "store",
+            "keyMap": {
+                "resultsKey": "data"
+            },
+            "storeKey": "colorsSource",
+            "dataSourceEndpoint": {
+                "target": {
+                    "uri": "colors"
+                }
+            }
+        },
+        {            
+            "id": "name",
             "type": "input",
             "inputType": "text",
-            "id": "name",
-            "label": "What is your Name?"
+            "label": "What is your Name?",
+            "options": {
+                "validations": {
+                    "required": true
+                }
+            }
+        },
+        {            
+            "id": "isHuman",
+            "type": "input",
+            "inputType": "radio",
+            "label": "Are you Human?"
+        },
+        {            
+            "id": "birthday",
+            "rendered": "isHuman",
+            "type": "input",
+            "inputType": "datepicker",
+            "label": "What is your Birthday?"
+        },
+        {            
+            "id": "color",
+            "type": "input",
+            "inputType": "select",
+            "label": "Select the best color:",
+            "options": {
+                "values": {
+                    "fromArray": "store.colorsSource",
+                    "textKey": "text",
+                    "valueKey": "value"
+                }
+            }
         }
     ]
 }

@@ -29,6 +29,38 @@ app.get('/', (req, res, next) => {
     res.sendFile('index.html', { root: 'public' });
 });
 
+/* GET Colors */
+app.get('/colors', (req, res, next) => {
+    res.send({
+        data: [
+            {
+                value: 0,
+                text: 'Red'
+            },
+            {
+                value: 1,
+                text: 'Orange'
+            },
+            {
+                value: 2,
+                text: 'Yellow'
+            },
+            {
+                value: 3,
+                text: 'Green'
+            },
+            {
+                value: 4,
+                text: 'Blue'
+            },
+            {
+                value: 5,
+                text: 'Purple'
+            }
+        ]
+    })
+});
+
 server.listen(process.env.PORT || 3000, () => {
     console.log('Listening on %j...', server.address());
 });

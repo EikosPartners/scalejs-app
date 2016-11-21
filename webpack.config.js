@@ -16,6 +16,7 @@ module.exports = {
             'scalejs.sandbox': path.join(__dirname, 'node_modules/scalejs/dist/scalejs.sandbox.js'),
 
             // extensions
+            'jquery-ui/autocomplete':  path.join(__dirname, 'node_modules/jquery-ui/ui/widgets/autocomplete.js')
         }
     },
     output: {
