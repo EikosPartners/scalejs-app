@@ -19,7 +19,7 @@ function _ajax(request, callback) {
     // Extract options and url from request:
     request = request || baseUri; // Default for request when falsy
     const isRequestString = (typeof request === 'string' || request instanceof String);
-    const url = (isRequestString ? request : request.url);
+    const url = (isRequestString ? request : request.url) + (request.uri || '');
     const options = (!isRequestString && request.options) || {}; // use request.options if exists, otherwise use {}
     const type = (options.type || 'GET').toUpperCase();
 
