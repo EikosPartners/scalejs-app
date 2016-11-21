@@ -68,7 +68,7 @@ module.exports = {
             },
             {
                 test: /\.woff|\.woff2|\.svg|.eot|\.png|\.jpg|\.ttf/,
-                loader: 'url?prefix=font/&limit=10000'
+                loader: 'url-loader?prefix=font/&limit=10000'
             }
         ]
     },
