@@ -339,6 +339,162 @@ import 'scalejs.metadatafactory-common/dist/action/actionModule';
 import 'scalejs.metadatafactory-common/dist/action/actions/ajax';
 ```
 
-```JSON
+Now that we have imported store, action, and an ajax action, and also assuming your PJSON/Scalejs Setup has a proper dataservice (such as the one included in the tutorial seed),
+we can use this JSON to populate our select:
 
+```JSON
+{
+    "type": "adapter",
+    "children": [
+        {
+            "type": "store",
+            "keyMap": {
+                "resultsKey": "data"
+            },
+            "storeKey": "colorsSource",
+            "dataSourceEndpoint": {
+                "target": {
+                    "uri": "colors"
+                }
+            }
+        },
+        {            
+            "id": "name",
+            "type": "input",
+            "inputType": "text",
+            "label": "What is your Name?",
+            "options": {
+                "validations": {
+                    "required": true
+                }
+            }
+        },
+        {            
+            "id": "isHuman",
+            "type": "input",
+            "inputType": "radio",
+            "label": "Are you Human?"
+        },
+        {            
+            "id": "birthday",
+            "rendered": "isHuman",
+            "type": "input",
+            "inputType": "datepicker",
+            "label": "What is your Birthday?"
+        },
+        {            
+            "id": "color",
+            "type": "input",
+            "inputType": "select",
+            "label": "Select the best color:",
+            "options": {
+                "values": {
+                    "fromArray": "store.colorsSource",
+                    "textKey": "text",
+                    "valueKey": "value"
+                }
+            }
+        }
+    ]
+}
 ```
+
+![Select the best color from the server](./6_add_select_store.jpg)
+
+## 9. Add a List
+
+Now that we have covered basic inputs, one more form feature we would like to show before we move into Persisting our form data is to have a list entry.
+That means you want to gather multiple answers from the user that they enter in a list format.
+You have two options for list entry, `list` and `listAdvanced`. We will cover these more indepth in our APIs and other docs, with the main difference being that 
+`listAdvanced` gives you a tabular view of your list as well as the ability to populate additional headers and footers.
+
+For our simple tutorial we will only use a `list`. A List takes in an array of `items` which are other PJSON components, namely, inputs.
+
+Again we will start off by importing the module we desire:
+
+```JavaScript
+import 'scalejs.metadatafactory-common/dist/list/listModule';
+```
+
+In our JSON we will add 2 components - a `textLabel` component to have a label without the input,
+and a `list` component. Within the List's `items` array, we will specify an `input` and for aesthetic purposes we will hide the label.
+
+```JSON
+{
+    "type": "adapter",
+    "children": [
+        {
+            "type": "store",
+            "keyMap": {
+                "resultsKey": "data"
+            },
+            "storeKey": "colorsSource",
+            "dataSourceEndpoint": {
+                "target": {
+                    "uri": "colors"
+                }
+            }
+        },
+        {            
+            "id": "name",
+            "type": "input",
+            "inputType": "text",
+            "label": "What is your Name?",
+            "options": {
+                "validations": {
+                    "required": true
+                }
+            }
+        },
+        {            
+            "id": "isHuman",
+            "type": "input",
+            "inputType": "radio",
+            "label": "Are you Human?"
+        },
+        {            
+            "id": "birthday",
+            "rendered": "isHuman",
+            "type": "input",
+            "inputType": "datepicker",
+            "label": "What is your Birthday?"
+        },
+        {            
+            "id": "color",
+            "type": "input",
+            "inputType": "select",
+            "label": "Select the best color:",
+            "options": {
+                "values": {
+                    "fromArray": "store.colorsSource",
+                    "textKey": "text",
+                    "valueKey": "value"
+                }
+            }
+        },
+        {
+            "type": "input",
+            "inputType": "textLabel",
+            "label": "Please list your friends:"
+        },
+        {
+            "id": "friends",
+            "type": "list",
+            "items": [
+                {
+                    "id": "name",
+                    "type": "input",
+                    "inputType": "text",
+                    "options": {
+                        "showLabel": false
+                    }
+                }
+            ]
+        }
+    ]
+}
+```
+
+<!--```JSON
+
+```-->

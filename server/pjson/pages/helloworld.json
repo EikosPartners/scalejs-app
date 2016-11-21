@@ -49,6 +49,25 @@
                     "valueKey": "value"
                 }
             }
+        },
+        {
+            "type": "input",
+            "inputType": "textLabel",
+            "label": "Please list your friends:"
+        },
+        {
+            "id": "friends",
+            "type": "list",
+            "items": [
+                {
+                    "id": "name",
+                    "type": "input",
+                    "inputType": "text",
+                    "options": {
+                        "showLabel": false
+                    }
+                }
+            ]
         }
     ]
 }
