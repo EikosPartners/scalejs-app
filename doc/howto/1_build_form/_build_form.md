@@ -721,6 +721,146 @@ which relies upon the `id` of the adapter.
 At the end of our form we will add an `action` with an `actionType` of ajax and
 tell it to POST to a REST service (which will be implemented in the next step).
 
+```JSON
+        {
+            "type": "action",
+            "actionType": "ajax",
+            "text": "Save",
+            "options": {
+                "target": {
+                    "uri": "form",
+                    "options": {
+                        "type": "POST"
+                    }
+                }
+            }
+        }
+```
+
+Our full JSON now looks like this:
+
+```JSON
+{
+    "type": "adapter",
+    "id": "basicForm",
+    "children": [
+        {
+            "type": "validations"
+        },
+        {
+            "type": "store",
+            "keyMap": {
+                "resultsKey": "data"
+            },
+            "storeKey": "colorsSource",
+            "dataSourceEndpoint": {
+                "target": {
+                    "uri": "colors"
+                }
+            }
+        },
+        {
+            "type": "store",
+            "keyMap": {
+                "resultsKey": "data"
+            },
+            "storeKey": "thingsSource",
+            "dataSourceEndpoint": {
+                "target": {
+                    "uri": "things"
+                }
+            }
+        },
+        {            
+            "id": "name",
+            "type": "input",
+            "inputType": "text",
+            "label": "What is your Name?",
+            "options": {
+                "validations": {
+                    "required": true
+                }
+            }
+        },
+        {            
+            "id": "isHuman",
+            "type": "input",
+            "inputType": "radio",
+            "label": "Are you Human?"
+        },
+        {            
+            "id": "birthday",
+            "rendered": "isHuman",
+            "type": "input",
+            "inputType": "datepicker",
+            "label": "What is your Birthday?"
+        },
+        {            
+            "id": "color",
+            "type": "input",
+            "inputType": "select",
+            "label": "Select the best color:",
+            "options": {
+                "values": {
+                    "fromArray": "store.colorsSource",
+                    "textKey": "text",
+                    "valueKey": "value"
+                }
+            }
+        },
+        {            
+            "id": "color",
+            "type": "input",
+            "inputType": "select",
+            "label": "Select a thing of that color:",
+            "options": {
+                "values": {
+                    "fromArray": "_.filter(store.thingsSource, ['color', color])",
+                    "textKey": "text",
+                    "valueKey": "text"
+                }
+            }
+        },
+        {
+            "type": "input",
+            "inputType": "textLabel",
+            "label": "Please list your friends:"
+        },
+        {
+            "id": "friends",
+            "type": "list",
+            "items": [
+                {
+                    "id": "name",
+                    "type": "input",
+                    "inputType": "text",
+                    "options": {
+                        "showLabel": false
+                    }
+                }
+            ]
+        },
+        {
+            "type": "action",
+            "actionType": "ajax",
+            "text": "Save",
+            "options": {
+                "target": {
+                    "uri": "form",
+                    "options": {
+                        "type": "POST"
+                    }
+                }
+            }
+        }
+    ]
+}
+```
+And we are able to verify the data is being sent with the network tab:
+
+![Go Data Go](./9_post_data.jpg)
+
+## 12. Retrieve your Form Data
 
 More coming soon.
 
