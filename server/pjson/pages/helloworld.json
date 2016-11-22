@@ -1,6 +1,10 @@
 {
     "type": "adapter",
+    "id": "basicForm",
     "children": [
+        {
+            "type": "validations"
+        },
         {
             "type": "store",
             "keyMap": {
@@ -93,6 +97,19 @@
                     }
                 }
             ]
+        },
+        {
+            "type": "action",
+            "actionType": "ajax",
+            "text": "Save",
+            "options": {
+                "target": {
+                    "uri": "form",
+                    "options": {
+                        "type": "POST"
+                    }
+                }
+            }
         }
     ]
 }

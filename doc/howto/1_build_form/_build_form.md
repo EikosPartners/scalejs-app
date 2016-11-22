@@ -554,11 +554,22 @@ This actually does work, once we have selected "blue" we can see the options for
 
 ![It's probably magic?](./7_add_second_select.jpg)
 
+To understand further what is going on here, let's deconstruct the expression:
+
+`_.filter(store.thingsSource, ['color', color])`
+
+[_.filter](https://lodash.com/docs/4.17.2#filter) is being passed 2 arguments,
+`store.thingsSource`  and an array which tells lodash which property to filter on.
+In this case, by passing `['color', color]`, it will check each object in the source array's `color` field
+and make sure it matches the result of the user-input into the `color` select inputbox. 
+(color is the **id** of the color selection field)
+
+
 As you can see, having the ability to use lodash in our expressions allows us to use advanced functionality without having to create custom code.
 
 ## 10. Add a List
 
-Now that we have covered basic inputs, one more form feature we would like to show before we move into Persisting our form data is to have a list entry.
+Now that we have covered basic inputs and more, one more form feature we would like to show before we move into Persisting our form data is to have a list entry.
 That means you want to gather multiple answers from the user that they enter in a list format.
 You have two options for list entry, `list` and `listAdvanced`. We will cover these more indepth in our APIs and other docs, with the main difference being that 
 `listAdvanced` gives you a tabular view of your list as well as the ability to populate additional headers and footers.
@@ -684,6 +695,32 @@ After refreshing you will see an "Add" button appear which allows you to add ite
 Now that we have created a beautiful(ly functional) form, we will want to try to POST the data and persist it on our backend.
 
 For this we will want to add two things: an ajax save `action` and a `validations` component, so that we cannot save until our form is valid.
+
+We already imported the `action` and the `ajax` action when we used a `store`,
+so we only need to import the validations component:
+
+```JavaScript
+import 'scalejs.metadatafactory-common/dist/validations/validationsModule';
+```
+
+Once imported you can add the validations component as a child to the adapter.
+Also, we will want to add an `id` to the adapter so that we can leverage the validations component,
+which relies upon the `id` of the adapter.
+
+
+```JSON
+{
+    "type": "adapter",
+    "id": "basicForm",
+    "children": [
+        {
+            "type": "validations"
+        },
+```
+
+At the end of our form we will add an `action` with an `actionType` of ajax and
+tell it to POST to a REST service (which will be implemented in the next step).
+
 
 More coming soon.
 

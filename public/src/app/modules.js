@@ -6,4 +6,6 @@ import 'scalejs.metadatafactory-common/dist/store/storeModule';
 import 'scalejs.metadatafactory-common/dist/action/actionModule';
 import 'scalejs.metadatafactory-common/dist/action/actions/ajax';
 import 'scalejs.metadatafactory-common/dist/list/listModule';
+import 'scalejs.metadatafactory-common/dist/validations/validationsModule';
+
 // Load app-specific modules:
