@@ -67,7 +67,7 @@
             }
         },
         {            
-            "id": "color",
+            "id": "thing",
             "type": "input",
             "inputType": "select",
             "label": "Select a thing of that color:",

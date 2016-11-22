@@ -534,7 +534,7 @@ Now we will make this JSON, adding another `store` and another `select`.
             }
         },
         {            
-            "id": "color",
+            "id": "thing",
             "type": "input",
             "inputType": "select",
             "label": "Select a thing of that color:",
@@ -651,7 +651,7 @@ and a `list` component. Within the List's `items` array, we will specify an `inp
             }
         },
         {            
-            "id": "color",
+            "id": "thing",
             "type": "input",
             "inputType": "select",
             "label": "Select a thing of that color:",
@@ -809,7 +809,7 @@ Our full JSON now looks like this:
             }
         },
         {            
-            "id": "color",
+            "id": "thing",
             "type": "input",
             "inputType": "select",
             "label": "Select a thing of that color:",
