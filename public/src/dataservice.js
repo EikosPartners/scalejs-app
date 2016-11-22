@@ -22,12 +22,10 @@ function _ajax(request, callback) {
     const url = (isRequestString ? request : request.url || '/') + (request.uri || '');
     const options = (!isRequestString && request.options) || {}; // use request.options if exists, otherwise use {}
     const type = (options.type || 'GET').toUpperCase();
+    const data = request.data || options.data;
 
     // Create request:
     request = new XMLHttpRequest();
-
-    // Set options:
-    if (type !== 'GET') { request.setRequestHeader('Content-Type', 'application/json'); }
 
     request.onreadystatechange = function () {
         // Check to make sure request is completed, otherwise ignore:
@@ -62,7 +60,11 @@ function _ajax(request, callback) {
 
     // Open and send request:
     request.open(type, url, true);
-    request.send(type !== 'GET' && JSON.stringify(options.data));
+
+    // Set options:
+    if (type !== 'GET') { request.setRequestHeader('Content-Type', 'application/json'); }
+
+    request.send(type !== 'GET' && JSON.stringify(data));
 }
 
 export {
