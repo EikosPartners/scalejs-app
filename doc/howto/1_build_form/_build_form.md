@@ -856,6 +856,11 @@ Our full JSON now looks like this:
     ]
 }
 ```
+
+Now we can fill out our form and press the save button:
+
+![A form for four year olds](./9_form_preview.jpg)
+
 And we are able to verify the data is being sent with the network tab:
 
 ![Go Data Go](./9_post_data.jpg)
