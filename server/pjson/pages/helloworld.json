@@ -13,6 +13,18 @@
                 }
             }
         },
+        {
+            "type": "store",
+            "keyMap": {
+                "resultsKey": "data"
+            },
+            "storeKey": "thingsSource",
+            "dataSourceEndpoint": {
+                "target": {
+                    "uri": "things"
+                }
+            }
+        },
         {            
             "id": "name",
             "type": "input",
@@ -47,6 +59,19 @@
                     "fromArray": "store.colorsSource",
                     "textKey": "text",
                     "valueKey": "value"
+                }
+            }
+        },
+        {            
+            "id": "color",
+            "type": "input",
+            "inputType": "select",
+            "label": "Select a thing of that color:",
+            "options": {
+                "values": {
+                    "fromArray": "_.filter(store.thingsSource, ['color', color])",
+                    "textKey": "text",
+                    "valueKey": "text"
                 }
             }
         },

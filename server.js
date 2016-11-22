@@ -61,6 +61,53 @@ app.get('/colors', (req, res, next) => {
     })
 });
 
+/* GET Things */
+app.get('/things', (req, res, next) => {
+    res.send({
+        data: [
+            {
+                color: 0,
+                text: 'Apples'
+            },
+            {
+                color: 0,
+                text: 'Fire Trucks'
+            },
+            {
+                color: 1,
+                text: 'Oranges'
+            },
+            {
+                color: 4,
+                text: 'Sky'
+            },
+            {
+                color: 4,
+                text: 'Oceans'
+            },
+            {
+                color: 4,
+                text: 'BlueBerry'
+            }
+        ]
+    })
+});
+
+/* GET/POST form data */
+
+let formData = null;
+
+app.get('/form', (req, res, next) => {
+    res.send(formData);
+});
+
+app.post('/form', (req, res, next) => {
+    formData = req.body;
+    res.send({
+        success: true
+    })
+});
+
 server.listen(process.env.PORT || 3000, () => {
     console.log('Listening on %j...', server.address());
 });
