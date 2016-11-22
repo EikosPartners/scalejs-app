@@ -726,6 +726,7 @@ tell it to POST to a REST service (which will be implemented in the next step).
             "type": "action",
             "actionType": "ajax",
             "text": "Save",
+            "validate": "basicForm.validate",
             "options": {
                 "target": {
                     "uri": "form",
@@ -844,6 +845,7 @@ Our full JSON now looks like this:
             "type": "action",
             "actionType": "ajax",
             "text": "Save",
+            "validate": "basicForm.validate",
             "options": {
                 "target": {
                     "uri": "form",
@@ -865,9 +867,189 @@ And we are able to verify the data is being sent with the network tab:
 
 ![Go Data Go](./9_post_data.jpg)
 
+As for the validations, if you were to try to save without having filled 
+out the required field, you will see the validations component in the UI:
+
+![Sad Validations](./9_validations.jpg)
+
+This is caused by the connection between the `validate` option in the action,
+which notifies the `validations` component that it needs to check if the form is valid
+before the action can be performed. In this case, since the form is invalid,
+the AJAX call does not get sent.
+
+
 ## 12. Retrieve your Form Data
 
-More coming soon.
+To retrieve the form data, first let us add some endpoints to our backend to support persisting the data.
+Since we are not overly fancy here there is just a single endpoint to take the data and store it in a variable,
+and another endpoint to retrieve it.
+
+```JavaScript
+/* GET/POST form data */
+
+let formData = null;
+
+app.get('/form', (req, res, next) => {
+    res.send(formData);
+});
+
+app.post('/form', (req, res, next) => {
+    formData = req.body;
+    res.send({
+        success: true
+    })
+});
+
+```
+
+After a server restart, the POST call from before should persist the data, 
+which you can double-check by hitting the form GET endpoint.
+
+Now we just need to make sure the Form is populated with this data by specifying the
+GET request for the form within the adapter.
+
+Although this populates the adapter's context with the data from the GET
+request, in order for the inputs within the form to have their values set we need to
+import and include another component, the `setValue` component.
+
+The reason we created a seperate `setValue` component is to keep the setting of
+the data seperate from the tracking and population of adapter context. 
+
+Like other modules you need to import it:
+
+```JavaScript
+import 'scalejs.metadatafactory-common/dist/setValue/setValueModule';
+```
+
+And also add it to your adapter's children, as well as a dataSourceEndpoint to 
+tell our adapter where to GET the data from.
+
+```JSON
+{
+    "type": "adapter",
+    "id": "basicForm",
+    "dataSourceEndpoint": {
+        "target": {
+            "uri": "form"
+        }
+    },
+    "children": [
+        {
+            "type": "validations"
+        },
+        {
+            "type": "setValue"
+        },
+        {
+            "type": "store",
+            "keyMap": {
+                "resultsKey": "data"
+            },
+            "storeKey": "colorsSource",
+            "dataSourceEndpoint": {
+                "target": {
+                    "uri": "colors"
+                }
+            }
+        },
+        {
+            "type": "store",
+            "keyMap": {
+                "resultsKey": "data"
+            },
+            "storeKey": "thingsSource",
+            "dataSourceEndpoint": {
+                "target": {
+                    "uri": "things"
+                }
+            }
+        },
+        {            
+            "id": "name",
+            "type": "input",
+            "inputType": "text",
+            "label": "What is your Name?",
+            "options": {
+                "validations": {
+                    "required": true
+                }
+            }
+        },
+        {            
+            "id": "isHuman",
+            "type": "input",
+            "inputType": "radio",
+            "label": "Are you Human?"
+        },
+        {            
+            "id": "birthday",
+            "rendered": "isHuman",
+            "type": "input",
+            "inputType": "datepicker",
+            "label": "What is your Birthday?"
+        },
+        {            
+            "id": "color",
+            "type": "input",
+            "inputType": "select",
+            "label": "Select the best color:",
+            "options": {
+                "values": {
+                    "fromArray": "store.colorsSource",
+                    "textKey": "text",
+                    "valueKey": "value"
+                }
+            }
+        },
+        {            
+            "id": "thing",
+            "type": "input",
+            "inputType": "select",
+            "label": "Select a thing of that color:",
+            "options": {
+                "values": {
+                    "fromArray": "_.filter(store.thingsSource, ['color', color])",
+                    "textKey": "text",
+                    "valueKey": "text"
+                }
+            }
+        },
+        {
+            "type": "input",
+            "inputType": "textLabel",
+            "label": "Please list your friends:"
+        },
+        {
+            "id": "friends",
+            "type": "list",
+            "items": [
+                {
+                    "id": "name",
+                    "type": "input",
+                    "inputType": "text",
+                    "options": {
+                        "showLabel": false
+                    }
+                }
+            ]
+        },
+        {
+            "type": "action",
+            "actionType": "ajax",
+            "text": "Save",
+            "validate": "basicForm.validate",
+            "options": {
+                "target": {
+                    "uri": "form",
+                    "options": {
+                        "type": "POST"
+                    }
+                }
+            }
+        }
+    ]
+}
+```
 
 <!--```JSON
 

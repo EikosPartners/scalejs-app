@@ -1,9 +1,17 @@
 {
     "type": "adapter",
     "id": "basicForm",
+    "dataSourceEndpoint": {
+        "target": {
+            "uri": "form"
+        }
+    },
     "children": [
         {
             "type": "validations"
+        },
+        {
+            "type": "setValue"
         },
         {
             "type": "store",
@@ -102,6 +110,7 @@
             "type": "action",
             "actionType": "ajax",
             "text": "Save",
+            "validate": "basicForm.validate",
             "options": {
                 "target": {
                     "uri": "form",
