@@ -3,10 +3,12 @@ const http = require('http');
 const pjsonLoader = require('pjson-loader');
 const express = require('express');
 const bundler = require('./server/bundler.js');
+const bodyParser = require('body-parser');
 
 const app = express();
 const server = http.createServer(app);
 app.use(express.static('public'));
+app.use(bodyParser.json());
 
 // pjson setup.
 pjsonLoader.load(app, {
