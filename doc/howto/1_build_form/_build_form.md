@@ -20,7 +20,6 @@ You can also clone the results from this tutorial from the `form-example` branch
 10. Add a List
 11. Post your Form Data
 12. Retrieve your Form Data
-13. Improve your form's Design
 
 ## 1. Get Common
 
